@@ -11,12 +11,14 @@
         <option>6</option>
       </select>
     </div>
-    <span>Вибрано: {{ selected }}</span>
-    <converter v-if="selected == 2" />
-    <order v-if="selected == 3" />
-    <quiz v-if="selected == 4" />
-    <numberCheck v-if="selected == 5" />
-    <keyShift v-if="selected == 6" />
+    <span>Вибрано завдання: {{ selected }}</span>
+    <div class="container">
+      <converter v-if="selected == 2" />
+      <order v-if="selected == 3" />
+      <quiz v-if="selected == 4" />
+      <numberCheck v-if="selected == 5" />
+      <keyShift v-if="selected == 6" />
+    </div>
     </div>
 </template>
 
@@ -40,6 +42,7 @@ export default {
   data: function() {
     return {
       selected: '',
+      
     }
   },
 }
@@ -53,5 +56,13 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+
 }
 </style>
