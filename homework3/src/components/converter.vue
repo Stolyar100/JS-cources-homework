@@ -8,9 +8,12 @@
       </p>
     </div>
     <div class="input-block">
-      <input v-for="currency in currencies" :key="currency.currencyId"
-      :placeholder="currency.name" v-model="currency.value"
-      @keyup="calcCurrenciesValue(currency)" />
+      <div class="currency" 
+      v-for="currency in currencies" :key="currency.currencyId">
+        <input :placeholder="currency.name" v-model="currency.value"
+        @keyup="calcCurrenciesValue(currency)" />
+        <p>{{ currency.currencyId}}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -97,10 +100,24 @@ export default {
   align-content: center;
 }
 
-.input-block input {
+.currency {
   display: flex;
-  padding: 10px 18px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
   font-size: 18px;
+}
+
+.currency input {
+  font-size: 18px;
+  padding: 10px 18px;
+  width: 80%;
   margin-bottom: 16px;
 }
+
+.currency p {
+  text-transform: uppercase;
+  font-weight: 500
+}
 </style>
+
