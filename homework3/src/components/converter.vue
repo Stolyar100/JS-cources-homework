@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     calcCurrenciesValue(currency) {
-      if(isNaN(currency.value)) {
+      if(isNaN(currency.value) || (currency.value == 0) ) {
         this.currencies.map(currency => {
           currency.value = '';
             return currency;
@@ -70,7 +70,7 @@ export default {
         const currentFrancValue = currency.value / currency.rate;
         const currentId = currency.currencyId;
         this.currencies.map(currency => {
-          if(currency.currencyId != currentId) {
+          if(currency.currencyId !== currentId) {
             currency.value = currentFrancValue * currency.rate;
             return currency;
           }
