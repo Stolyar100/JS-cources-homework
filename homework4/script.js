@@ -16,10 +16,17 @@ function calcSum(sumAmount) {
 }
 
 function secondTask() {
-    let a = +prompt('Введіть довжину сторони a');
-    let b = +prompt('Введіть довжину сторони b');
+    const testArray = [1, 2, 3, 4, 5];
 
-    alert(`Периметр прямокутника = ${2*(a + b)}`);
+    alert(`Всі елементи масива [${showArray(testArray)}]`);
+}
+
+function showArray(array) {
+    let result = '';
+    for (let i = 0; i < array.length; i++) {
+        result += `${array[i]}, `;
+    }
+    return result;
 }
 
 function thirdTask() {
