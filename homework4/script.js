@@ -51,10 +51,51 @@ function calcMax(array) {
 }
 
 function fourthTask() {
-    let time = +prompt('Скільки годин ви ще будете їхати', 3);
-    let distance = 50 * time;
+    let input = prompt('Введіть 8 чисел( скільки завгодно) через пробіл');
+    let inputArray = input.split(' ').map(Number);
 
-    alert(`Ви проїдете ${distance} км`);
+    let ZeroAmount = calcZeroAmount(inputArray);
+    let PositiveNumAmount = calcPositiveNumAmount(inputArray);
+    let NegativeNumAmount = calcNegativeNumAmount(inputArray);
+
+    alert(`Ви ввели ${inputArray.length} чисел, з них:
+    - ${PositiveNumAmount} додатніх, - ${NegativeNumAmount} від'ємних та - ${ZeroAmount} нулів`);
+}
+
+function calcZeroAmount(array) {
+    let ZeroAmount = 0;
+
+    for (let i = 0; i < array.length; i++) {
+        if ((array[i] === 0) && (!isNaN(array[i]))) {
+            ZeroAmount += 1;
+        }
+    }
+
+    return ZeroAmount;
+}
+
+function calcPositiveNumAmount(array) {
+    let PositiveNumAmount = 0;
+
+    for (let i = 0; i < array.length; i++) {
+        if ((array[i] > 0) && (!isNaN(array[i]))) {
+            PositiveNumAmount += 1;
+        }
+    }
+
+    return PositiveNumAmount;
+}
+
+function calcNegativeNumAmount(array) {
+    let NegativeNumAmount = 0;
+
+    for (let i = 0; i < array.length; i++) {
+        if ((array[i] < 0) && (!isNaN(array[i]))) {
+            NegativeNumAmount += 1;
+        }
+    }
+
+    return NegativeNumAmount;
 }
 
 function convertToMiles(kilometers) {
