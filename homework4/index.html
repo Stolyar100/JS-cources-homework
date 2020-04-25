@@ -12,7 +12,83 @@
     <button onclick="fifthTask()">Task5</button>
     <button onclick="sixthTask()">Task6</button>
     <button onclick="seventhTask()">Task7</button>
-
+    
+    <div>
+        <h2>Відмінності між стрілковими та звичайними функціями</h2>
+        <ul>
+            <li>
+                <h3>Синтаксис</h3>
+                <p>Стрілкові функції записуються простіше:</p>
+                <pre>
+                    // (param1, param2, paramN) => expression
+                    // ES5
+                    var add = function(x, y) {
+                        return x + y;
+                    };
+                    // ES6
+                    let add = (x, y) => { return x + y };
+                </pre>
+            </li>
+            <li>
+                <h3>Прив'язка аргументів</h3>
+                <p>У стрілкових функцій немає аргументів. 
+                    Однак вони мають доступ до аргументів об'єкта найближчої батьківської функції без стрілки:</p>
+                <pre>
+                    let myFunc = {  
+                        showArgs(){ 
+                            console.log(arguments); 
+                        } 
+                    }; 
+                    myFunc.showArgs(1, 2, 3, 4);
+                </pre>
+                <pre>
+                    let myFunc = {  
+                        showArgs : () => { 
+                            console.log(...arguments); 
+                        } 
+                    }; 
+                    myFunc.showArgs(1, 2, 3, 4);
+                </pre>
+            </li>
+            <li>
+                <h3>використання ключового слова <em>this</em></h3>
+                <p>У стрілкової функції немає власного <em>this</em>:</p>
+                <pre>
+                    let me = { 
+                        name: "Ashutosh Verma", 
+                        thisInArrow:() => { 
+                        console.log("My name is " + this.name); // no 'this' binding here 
+                        }, 
+                        thisInRegular(){ 
+                        console.log("My name is " + this.name); // 'this' binding works here 
+                        } 
+                    };
+                    me.thisInArrow(); 
+                    me.thisInRegular();
+                </pre>
+            </li>
+            <li>
+                <h3>використання ключового слова <em>new</em></h3>
+                <p>Стрілкову функцію не вийде використати як конструктрок з 
+                    ключовим словом <em>new</em>:</p>
+                <pre>
+                    let add = (x, y) => console.log(x + y);
+                    new add(2,3);
+                </pre>
+                <img src="https://miro.medium.com/max/1400/1*-YNGQqx_kYCNCmyOLzLt6w.png" 
+                alt="error">
+            </li>
+            <li>
+                <h3>Не можна дублювати аргументи</h3>
+                <p>Аргументи стрілкової функції не можна дублювати,
+                    як і не можна дублювати аргументи звичайної в 'use strict':</p>
+                <pre>
+                    (x, x) => {}
+                    // SyntaxError: duplicate argument names not allowed in this context
+                </pre>
+            </li>
+        </ul>
+    </div>
     <script type="text/javascript" src="./script.js"></script>
 </body>
 </html>
