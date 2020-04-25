@@ -98,34 +98,68 @@ function calcNegativeNumAmount(array) {
     return NegativeNumAmount;
 }
 
-function convertToMiles(kilometers) {
-    return kilometers * 0.62137;
-}
-function convertToKilometers(miles) {
-    return miles / 0.62137;
-}
-
 function fifthTask() {
-    let isToMile = confirm('Ви переводитt з кілометрів в милі?');
-    let value = +prompt('Введіть відстань', 50);
-    
-    if(isToMile) {
-        alert(`Це ${convertToMiles(value)} миль`);
-    } else {
-        alert(`Це ${convertToKilometers(value)} кілометрів`);
+    for (let i = 0; i < 10; i++) {
+        alert(`8 * ${i} = ${8 * i}`);
     }
 }
 
 function sixthTask() {
-    let money = +prompt('Скільки у вас грошей', 1000);
-    let price = +prompt('Скільки коштує літр бензину', 30);
-    let count = Math.floor(money / price);
-    let remainder = money -  count*price;
+    let testArray = [2, 5, 9, 15, 0, 4];
+    let min = 3;
+    let max = 10;
+    let filteredArray = getInRange(testArray, min, max);
 
-    alert(`Ви купили ${count} літрів бензину, ваша решта - ${remainder} грн`);
+    alert(`Початковий масив - [${showArray(testArray)}]
+    фільтрований в межах(${min}-${max}) - [${showArray(filteredArray)}]`);
+}
+
+function getInRange(array, min, max) {
+    return array.filter(num => ((!isNaN(num)) && ((num > min) && (num < max))));
 }
 
 function seventhTask() {
+    let condition;
 
+    do {
+        let input = prompt('Введіть три часла через пробіл (a ? b), де a - перше число, b - друге, ? - дія між ними(доступно +, -, *, /, ^)');
+        let expression = input.split(' ');
+
+        alert(`результат виконання ${expression[0]} ${expression[1]} ${expression[2]} = ${calculator(expression)}`);
+
+        condition = confirm('Порахуємо ще?))');
+    } while (condition);
 }
+
+function calculator(expression) {
+    let a, b;
+
+    a = parseInt(expression[0], 10);
+    b = parseInt(expression[2], 10);
+
+    if (isNaN(a) || isNaN(b)) {
+        return 'некорекоректні дані';
+    }
+    switch (expression[1]) {
+        case '+':
+            return a + b;
+            break;
+        case '-':
+            return a - b;
+            break;
+        case '*':
+            return a * b;
+            break;
+        case '/':
+            return a / b;
+            break;
+        case '^':
+            return a ** b;
+            break;        
+        default:
+            return 'некорекоректний символ';
+            break;
+    }
+}
+
 
