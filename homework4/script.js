@@ -23,17 +23,31 @@ function secondTask() {
 
 function showArray(array) {
     let result = '';
+
     for (let i = 0; i < array.length; i++) {
         result += `${array[i]}, `;
     }
+
     return result;
 }
 
 function thirdTask() {
-    let r = +prompt('Введіть радіус кола', 3);
-    let area = Math.PI*(r**2);
+    const testArray = [-1, 22, 3, 44, 5];
 
-    alert(`Площа круга = ${area}`);
+    alert(`максимальне значення масива - ${Math.max(...testArray)}`);
+    alert(`максимальне значення масива - ${calcMax(testArray)}`);
+}
+
+function calcMax(array) {
+    let maxValue = array[0];
+
+    for (let i = 0; i < array.length; i++) {
+        if (maxValue < array[i]) {
+            maxValue = array[i];
+        }
+    }
+
+    return maxValue;
 }
 
 function fourthTask() {
