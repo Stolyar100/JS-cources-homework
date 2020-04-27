@@ -12,7 +12,27 @@ function calcPowCube(num) {
     if (isNaN(num)) {
         return num;
     } else {
-        return num*num*num;
+        return num**3;
     }
     
+}
+
+function secondTask() {
+    let input = prompt('Введіть три числа числа через пробіл (a b c)');
+    let numbers = input.split(' ').map(Number);
+    let result = calcPlusDivide(...numbers);
+
+    if (isNaN(result)) {
+        alert('Ви ввели некоректні дані');
+    } else {
+        alert(`(${numbers[0]} + ${numbers[1]}) / ${numbers[2]} = ${result}`);
+    }
+}
+
+function calcPlusDivide(a, b, c) {
+    if (isNaN(a) || isNaN(b) || isNaN(c)) {
+        return NaN;
+    } else {
+        return (a + b) / c;
+    }
 }
