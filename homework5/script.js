@@ -107,3 +107,26 @@ function calcFactorialRecursion(num) {
     return num;
 }
 
+function fifthTask() {
+    let input = prompt('Введіть час у форматі гг:хх:сс');
+    let time = input.split(':').map(Number);
+
+    let result = calcSeconds(...time);
+
+    if (isNaN(result)) {
+        alert('Ви ввели некоректні дані');
+    } else {
+        alert(`${time[0]}:${time[1]}:${time[2]} - це ${result} секунди`);
+    }
+}
+
+function calcSeconds(hours, minutes, seconds) {
+    if (isNaN(hours) || isNaN(minutes) || isNaN(seconds)) {
+        return NaN;
+    }
+
+    return ((hours * 60 + minutes) * 60 + seconds);
+}
+
+
+
