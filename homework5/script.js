@@ -128,5 +128,35 @@ function calcSeconds(hours, minutes, seconds) {
     return ((hours * 60 + minutes) * 60 + seconds);
 }
 
+function sixthTask() {
+    let seconds = +prompt('Введіть кількість секунд', 68400);
+    let result = calcTime(seconds);
+    if (Number.isNaN(result)) {
+        alert('ви ввели некоректні дані');
+    } else if (result === false) {
+        alert('Більше одного дня');
+    } else {
+        alert(`Ви ввели ${result[0]}:${result[1]}:${result[2]}`);
+    }
+}
 
+function calcTime(seconds) {
+    if (Number.isNaN(seconds)) {
+        return NaN;
+    } 
+    
+    if (seconds > 86399) {
+        return false;
+    } else {
+        let time = [];
+
+        time[0] = Math.floor(seconds / 3600);
+        seconds -= time[0] * 3600;
+        time[1] = Math.floor(seconds / 60);
+        seconds -= time[1] * 60;
+        time[2] = seconds;
+        
+        return time;
+    }
+}
 
