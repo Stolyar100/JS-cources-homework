@@ -30,7 +30,7 @@ function secondTask() {
         },
         getArea: function () {
             let area;
-            if (this.widthZ) {
+            if ('widthZ' in thirdTask) {
                 area = (2 * (this.widthX * this.widthY + this.widthY * this.widthZ + this.widthX * this.widthZ));
             } else {
                 area = (this.widthX * this.widthY);
@@ -39,7 +39,7 @@ function secondTask() {
         },
         getPerimeter: function () {
             let perimeter;
-            if (this.widthZ) {
+            if ('widthZ' in thirdTask) {
                 perimeter = 4 * this.widthX + 4 * this.widthY + 4 * this.widthZ;
             } else {
                 perimeter = 2 * (this.widthX + this.widthY);
@@ -59,14 +59,14 @@ function secondTask() {
             if (useSI === true) {
                 this.widthX /= 100;
                 this.widthY /= 100;
-                if (this.widthZ) {
+                if ('widthZ' in thirdTask) {
                     this.widthZ /= 100;
                 }
                 this.isSI = true;
             } else if (useSI === false) {
                 this.widthX *= 100;
                 this.widthY *= 100;
-                if (this.widthZ) {
+                if ('widthZ' in thirdTask) {
                     this.widthZ *= 100;
                 }
                 this.isSI = false;
@@ -81,11 +81,117 @@ function secondTask() {
     figure.setName('parallelepiped');
     figure.setSI(true);
     console.log(figure);
+
 }
 
-
 function thirdTask() {
+    let toBuy = {
+        tomato: {
+            count: 5,
+            price: 50,
+            buy: true,
+            outOfstore: false,
+        },
+        bread: {
+            count: 1,
+            price: 20,
+            buy: true,
+            outOfstore: false,
+        },
+        butter: {
+            count: 2,
+            price: 40,
+            buy: false,
+            outOfstore: false,
+        },
+        cookies: {
+            count: 5,
+            price: 15,
+            buy: false,
+            outOfstore: false,
+        },
+        buckwheat: {
+            count: 10,
+            price: 60,
+            buy: false,
+            outOfstore: false,
+        },
+        toiletPaper: {
+            count: 10,
+            price: 15,
+            buy: true,
+            outOfstore: true,
+        },
+    }
 
+    console.log(`список покупок доступних в наявності:
+    ${showToBuyList(showAvailableToBuy(toBuy))}`);
+    console.log(`список покупок не доступних в наявності:
+    ${showToBuyList(showUnavailableToBuy(toBuy))}`);
+    console.log(`список зроблених покупок:
+    ${showToBuyList(showBought(toBuy))}`);
+    setItemBought(toBuy, 'butter');
+    console.log(`Ви витратили - ${calcTotalSpent(toBuy)} грн`);
+    console.log(toBuy);
+    increaseItemCount(toBuy, 'butter', 2);
+    decreaseItemCount(toBuy, 'cookies', 3);
+    console.log(toBuy);
+
+
+
+}
+
+function setItemBought(toBuy, item) {
+    toBuy[item].buy = true;
+}
+function calcTotalSpent(toBuy) {
+    let totalSpent = 0;
+    for (const key in toBuy) {
+        if (toBuy.hasOwnProperty(key) && toBuy[key].buy) {
+            totalSpent += toBuy[key].price * toBuy[key].count;
+        }
+    }
+    return totalSpent;
+}
+function increaseItemCount(toBuy, item, count) {
+    toBuy[item].count += count;
+}
+function decreaseItemCount(toBuy, item, count) {
+    if ((toBuy[item].count - count) > 0) {
+        toBuy[item].count -= count;
+    } else {
+        toBuy[item].count = 0;
+    }
+}
+function showAvailableToBuy(toBuy) {
+    let toBuyAvailable = {};
+    for (const key in toBuy) {
+        if (toBuy.hasOwnProperty(key) && !toBuy[key].outOfstore) {
+            toBuyAvailable[key] = toBuy[key];
+        }
+    }
+    return toBuyAvailable;
+}
+function showUnavailableToBuy(toBuy) {
+    let toBuyUnavailable = {};
+    for (const key in toBuy) {
+        if (toBuy.hasOwnProperty(key) && toBuy[key].outOfstore) {
+            toBuyUnavailable[key] = toBuy[key];
+        }
+    }
+    return toBuyUnavailable;
+}
+function showBought(toBuy) {
+    let toBuyUnavailable = {};
+    for (const key in toBuy) {
+        if (toBuy.hasOwnProperty(key) && toBuy[key].buy) {
+            toBuyUnavailable[key] = toBuy[key];
+        }
+    }
+    return toBuyUnavailable;
+}
+function showToBuyList(toBuy) {
+    return Object.keys(toBuy);
 }
 
 function fourthTask() {
