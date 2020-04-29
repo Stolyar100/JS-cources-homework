@@ -115,6 +115,8 @@ function fifthTask() {
 
     if (isNaN(result)) {
         alert('Ви ввели некоректні дані');
+    } else if (result === false) {
+        alert('Ви ввели завеликі значення')
     } else {
         alert(`${time[0]}:${time[1]}:${time[2]} - це ${result} секунди`);
     }
@@ -123,6 +125,8 @@ function fifthTask() {
 function calcSeconds(hours, minutes, seconds) {
     if (isNaN(hours) || isNaN(minutes) || isNaN(seconds)) {
         return NaN;
+    } else if ((hours > 23) || (minutes > 59) || (seconds > 59)) {
+        return false;
     }
 
     return ((hours * 60 + minutes) * 60 + seconds);
@@ -144,8 +148,8 @@ function calcTime(seconds) {
     if (Number.isNaN(seconds)) {
         return NaN;
     } 
-    
-    if (seconds > 86399) {
+    const dayLimit = (23 * 3600 + 59 * 60 +59);
+    if (seconds > dayLimit) {
         return false;
     } else {
         let time = [];
