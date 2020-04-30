@@ -136,9 +136,6 @@ function thirdTask() {
     increaseItemCount(toBuy, 'butter', 2);
     decreaseItemCount(toBuy, 'cookies', 3);
     console.log(toBuy);
-
-
-
 }
 
 function setItemBought(toBuy, item) {
@@ -195,5 +192,87 @@ function showToBuyList(toBuy) {
 }
 
 function fourthTask() {
+    let employees = [
+        {
+            name: "Yura",
+            age: 55,
+            hobby: ["films", "games", "hiking"],
+            type: "Admin",
+        },
+        {
+            name: "Tanya",
+            age: 26,
+            hobby: ["films", "Photography", "games", "manga"],
+            type: "Employee",
+        },
+        {
+            name: "Stephan",
+            age: 23,
+            hobby: ["films", "games", "cycling", "IoT"],
+            type: "Employee",
+        },
+        {
+            name: "Taras",
+            age: 19,
+            hobby: ["video editing", "games", "cycling", "rapping"],
+            type: "Employee",
+        },
+    ];
+    console.log(`Список адмінів
+    ${showEmployees(getAdmins(employees))}`);
+    console.log(`Унікальні хоббі:
+    ${getUniqueHobbies(employees)}`);
+    console.log(`Середній вік працівників:
+    ${calcAverageAge(employees)}`);
+    console.log(`унікальні хоббі працівників:
+    ${getUniqueHobbies(employees)}`);
+}
 
+function calcAverageAge(employees) {
+    let averageAge = employees.reduce((ageAmount, employee) => (ageAmount + employee.age), ageAmount = 0) / employees.length;
+    return averageAge;
+}
+
+function showEmployees(employeeList) {
+    let employeesNames = employeeList.map(employee => employee.name);
+    return employeesNames;
+}
+
+function showHobbies(employeeList) {
+    let employeesHobbies = employeeList.map(employee => employee.hobby);
+    return employeesHobbies;
+}
+
+function getAdmins(employeeList) {
+    let adminList = employeeList.filter(employee => employee.type == 'Admin');
+    return adminList;
+}
+
+function getUniqueHobbies(employeeList) {
+    let uniqueHobbiesList = [];
+    let hobbiesList = getHobbies(employeeList);
+
+    uniqueHobbiesList = hobbiesList.filter(checkIsUnique);
+    
+    return uniqueHobbiesList;
+}
+function checkIsUnique(element, indexOfElement, array) {
+    let elementCount = 0;
+    for (let index = 0; index < array.length; index++) {
+        if (elementCount > 1) {
+            return false;
+        }
+        if (array[index] == element) {
+            elementCount += 1;
+        }
+    }
+    return true;
+
+}
+function getHobbies(employeeList) {
+    let hobbiesList = [];
+    let hobbies = [];
+    hobbiesList = employeeList.map(employee => employee.hobby);
+    hobbies = hobbiesList.flat(1);
+    return hobbies;
 }
