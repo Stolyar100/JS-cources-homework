@@ -2,14 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Домашка цикли</title>
+    <title>Домашка DOM</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="modal" data-modal="sayHi">
+        <div class="modal__card">
+            <div class="modal__close-block">
+                <button class="modal__close-btn js-modal-close">
+                    &times
+                </button>
+            </div>
+            <div class="modal__message-block">
+                <h3 class="modal__message">Привіт</h3>
+            </div>
+        </div>
+    </div>
     <button onclick="firstTask()">Task1</button>
-    <button onclick="secondTask()">Task2</button>
-    <button onclick="thirdTask()">Task3</button>
-    <button onclick="fourthTask()">Task4</button>
+    <button class="js-open-modal" data-modal="sayHi">sayHi</button>   
 
     <ol id="countries">
         

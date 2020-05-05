@@ -32,5 +32,27 @@ function firstTask() {
             countryLi.classList.add('ukraine');
         }
         countries.appendChild(countryLi);
-    });
+    }); 
 }
+
+let modalButtons = document.querySelectorAll('.js-open-modal');
+let closeButtons = document.querySelectorAll('.js-modal-close');
+
+modalButtons.forEach( item => {
+    item.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        let modalId = this.getAttribute('data-modal'); 
+        let modalElem = document.querySelector(`.modal[data-modal="${modalId}"]`);
+        
+        modalElem.classList.add('active');
+    });
+});
+
+closeButtons.forEach(item => { 
+    item.addEventListener('click', function(e) {
+        let parentModal = this.closest('.modal');
+
+        parentModal.classList.remove('active');
+    });
+});
