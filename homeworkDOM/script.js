@@ -1,0 +1,36 @@
+function firstTask() {
+    let CountryList = [
+        {
+            country: "Україна",
+            capital: "Київ",
+            count: 40000000,
+        },
+        {
+            country: "Грузія",
+            capital: "Тбілісі",
+            count: 10000000,
+        },
+        {
+            country: "Великобританія",
+            capital: "Лондон",
+            count: 100000000,
+        },
+        {
+            country: "США",
+            capital: "Вашингтон",
+            count: 300000000,
+        }
+    ];
+
+    let countries = document.getElementById('countries');
+
+    CountryList.forEach(country => {
+        let countryLi = document.createElement('li');
+        countryLi.innerText = `${country.country}, ${country.capital} - ${country.count / 1000000} млн.`;
+        countryLi.classList.add('country');
+        if (country.country == 'Україна') {
+            countryLi.classList.add('ukraine');
+        }
+        countries.appendChild(countryLi);
+    });
+}
