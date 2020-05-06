@@ -56,3 +56,48 @@
 .modal.active {
     visibility: visible;
 }
+
+.colors {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+}
+
+.colors__select-color-block {
+    display: flex;
+    margin: 10px 30px;
+}
+
+.colors__select-color {
+    height: 40px;
+    width: 100px;
+    border-radius: 2px;
+    padding: 0;
+    border: 1px solid #3f87a6;
+}
+
+.colors__select-item-block {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.colors__select-item {
+    margin-left: 30px;
+    height: 90px;
+    width:200px;
+    border-radius: 2px;
+    margin-bottom: 40px;
+}
+
+.colors__select-item-btn {
+    height: 100%;
+    width: 100%;
+    border: 0;
+    border-radius: 2px;
+    background-color: #3f87a6;
+}
+
+.js-select-item.js-selected {
+    border: 1p solid #f69d3c;
+}
