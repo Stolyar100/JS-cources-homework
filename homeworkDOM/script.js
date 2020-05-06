@@ -56,3 +56,15 @@ closeButtons.forEach(item => {
         parentModal.classList.remove('active');
     });
 });
+
+
+
+let colorItems = document.querySelectorAll('.js-select-item');
+
+colorItems.forEach( item => {
+    item.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        item.style.backgroundColor = document.getElementById('select-color').value;
+    });
+});
