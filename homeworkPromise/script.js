@@ -3,17 +3,26 @@ let currentResource = 'films/';
 
 function firstTask() {
     showLoadScreen();
-    fetch(base + currentResource)
-        .then((res) => res.json())
-        .then((data) => addResource(data.results));
+    doFetchGet(base + currentResource).then((data) => {
+        if (data !== ull) {
+            addResource(data.results);
+        } else {
+            showErrorScreen();
+        }
+    });
 }
 
 function resourceSearch(event) {
     showLoadScreen();
-    let request = 'https://swapi.dev/api/people/?search=';
-    fetch(`${base}${currentResource}?search=${event.target.value}`)
-        .then((res) => res.json())
-        .then((data) => addResource(data.results));
+    doFetchGet(`${base}${currentResource}?search=${event.target.value}`).then(
+        (data) => {
+            if (data !== null) {
+                addResource(data.results);
+            } else {
+                showErrorScreen();
+            }
+        }
+    );
 }
 
 function setCurrentResource(event) {
@@ -24,24 +33,97 @@ function setCurrentResource(event) {
 function showLoadScreen() {
     clearResourceList();
 
-    let peopleEl = document.getElementById('people');
+    let peopleEl = document.getElementById('resource');
     let loadScreen = document.createElement('p');
     loadScreen.innerText = 'Load';
     peopleEl.append(loadScreen);
 }
 
+function showErrorScreen() {
+    clearResourceList();
+
+    let peopleEl = document.getElementById('resource');
+    let loadScreen = document.createElement('p');
+    loadScreen.classList.add('error');
+    loadScreen.innerText = 'Error';
+    peopleEl.append(loadScreen);
+}
+
+function checkIsURL(string) {
+    let URL = /http/g;
+    return URL.test(string);
+}
+
+function checkIsURLFilm(URL) {
+    let URLFilm = /films/g;
+    return URLFilm.test(URL);
+}
+
+async function doFetchGet(URL) {
+    const response = await fetch(URL)
+        .then((response) => (response.ok ? response.json() : null))
+        .catch((response) => console.log(response));
+
+    return response;
+}
+
+async function getValueList(values) {
+    let valueList = [];
+    await values.forEach((item) => {
+        if (checkIsURL(item)) {
+            doFetchGet(item).then((data) => {
+                if (data === null) {
+                    valueList.push(null);
+                } else {
+                    if (checkIsURLFilm(item)) {
+                        valueList.push(data.title);
+                    } else {
+                        valueList.push(data.name);
+                    }
+                }
+            });
+        } else {
+            return item;
+        }
+    });
+
+    return valueList;
+}
+
 function addResource(people) {
     clearResourceList();
-    let peopleEl = document.getElementById('people');
+    let peopleEl = document.getElementById('resource');
     people.forEach((person) => peopleEl.append(addResourceCard(person)));
 }
 
 function addResourceCard(person) {
     let personCard = document.createElement('div');
-    personCard.classList.add('people__card');
+    personCard.classList.add('resource__card');
 
     for (property in person) {
-        personCard.append(addResourceProperty(property, person[property]));
+        if (Array.isArray(person[property])) {
+            getValueList(person[property]).then((valueList) =>
+                personCard.append(addResourceListProperty(property, valueList))
+            );
+        } else {
+            if (!checkIsURL(person[property])) {
+                personCard.append(
+                    addResourceProperty(property, person[property])
+                );
+            } else {
+                doFetchGet(person[property]).then((data) => {
+                    if (checkIsURLFilm(person[property])) {
+                        personCard.append(
+                            addResourceProperty(property, data.title)
+                        );
+                    } else {
+                        personCard.append(
+                            addResourceProperty(property, data.name)
+                        );
+                    }
+                });
+            }
+        }
     }
 
     return personCard;
@@ -49,11 +131,11 @@ function addResourceCard(person) {
 
 function addResourceProperty(propertyName, propertyValue) {
     let propertyBlock = document.createElement('div');
-    propertyBlock.classList.add('people__property');
+    propertyBlock.classList.add('resource__property');
     let propertyNameBlock = document.createElement('h3');
-    propertyNameBlock.classList.add('people__property-name');
+    propertyNameBlock.classList.add('resource__property-name');
     let propertyValueBlock = document.createElement('p');
-    propertyNameBlock.classList.add('people__property-value');
+    propertyNameBlock.classList.add('resource__property-value');
 
     propertyNameBlock.innerText = propertyName;
     propertyValueBlock.innerText = propertyValue;
@@ -64,7 +146,34 @@ function addResourceProperty(propertyName, propertyValue) {
     return propertyBlock;
 }
 
+function addResourceListProperty(propertyName, propertyValueList) {
+    let propertyBlock = document.createElement('div');
+    propertyBlock.classList.add('resource__property');
+    let propertyNameBlock = document.createElement('h3');
+    propertyNameBlock.classList.add('resource__property-name');
+    let propertyValueBlock = document.createElement('p');
+    propertyNameBlock.classList.add('resource__property-value');
+
+    propertyNameBlock.innerText = propertyName;
+    propertyValueBlock.innerText = propertyValueList.reduce(
+        (accumulator, currentValue) => accumulator + currentValue,
+        ''
+    );
+    console.log(
+        "addResourceListProperty -> propertyValueList.reduce((accumulator, currentValue) => accumulator + currentValue, '')",
+        propertyValueList.reduce(
+            (accumulator, currentValue) => accumulator + currentValue,
+            ''
+        )
+    );
+
+    propertyBlock.append(propertyNameBlock);
+    propertyBlock.append(propertyValueBlock);
+
+    return propertyBlock;
+}
+
 function clearResourceList() {
-    let peopleEl = document.getElementById('people');
+    let peopleEl = document.getElementById('resource');
     peopleEl.innerText = '';
 }

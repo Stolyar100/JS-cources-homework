@@ -9,11 +9,11 @@
 
 <body>
     <button onclick="firstTask()">Task1</button>
-    <button onclick="clearPeopleList()">Clear list</button>
+    <button onclick="clearResourceList()">Clear list</button>
     <select
     oninput="setCurrentResource(event)"
     name="resource" 
-    id="resource">
+    id="resource-select">
         <option value="films/">films</option>
         <option value="people/">people</option>
         <option value="planets/">planets</option>
@@ -29,7 +29,7 @@
             class="search__input" 
             id="input">
         </div>
-        <div class="people" id="people">
+        <div class="resource" id="resource">
 
         </div>
     </div>
