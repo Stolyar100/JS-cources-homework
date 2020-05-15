@@ -86,7 +86,7 @@ async function getValueList(values) {
             return item;
         }
     });
-
+    valueList.join(', ');
     return valueList;
 }
 
@@ -153,19 +153,15 @@ function addResourceListProperty(propertyName, propertyValueList) {
     propertyNameBlock.classList.add('resource__property-name');
     let propertyValueBlock = document.createElement('p');
     propertyNameBlock.classList.add('resource__property-value');
+    
+    let test = propertyValueList.join(', ');
+    console.log(propertyValueList);
+    console.log(test);
 
     propertyNameBlock.innerText = propertyName;
-    propertyValueBlock.innerText = propertyValueList.reduce(
-        (accumulator, currentValue) => accumulator + currentValue,
-        ''
-    );
-    console.log(
-        "addResourceListProperty -> propertyValueList.reduce((accumulator, currentValue) => accumulator + currentValue, '')",
-        propertyValueList.reduce(
-            (accumulator, currentValue) => accumulator + currentValue,
-            ''
-        )
-    );
+    propertyValueBlock.innerText = '';
+
+    propertyValueList.forEach(item => console.log(item));
 
     propertyBlock.append(propertyNameBlock);
     propertyBlock.append(propertyValueBlock);
