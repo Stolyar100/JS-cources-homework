@@ -4,7 +4,7 @@ let currentResource = 'films/';
 function firstTask() {
     showLoadScreen();
     doFetchGet(base + currentResource).then((data) => {
-        if (data !== ull) {
+        if (data !== null) {
             addResource(data.results);
         } else {
             showErrorScreen();
